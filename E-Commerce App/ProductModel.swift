@@ -31,11 +31,13 @@ struct ProductModel:Identifiable, Hashable {
     let price:Float
     let bgColor:Color
     let category: ProductCategory
+    let image:String
 }
 
-var productList = [ ProductModel(name: "Good Sauce", price: 12.99, bgColor: .blue, category: .Sweets),
-                    ProductModel(name: "Nestle Maggi", price: 12.99, bgColor: .orange, category: .Noodles),
-                    ProductModel(name: "Bingo Doritos", price: 12.99, bgColor: .green, category: .Chips),
-                    ProductModel(name: "Dairy Milk", price: 12.99, bgColor: .purple, category: .Choco),
-                    ProductModel(name: "Fritolay Kurkure", price: 12.99, bgColor: .pink, category: .Chips)
-]
+var productList = [ ProductModel(name: "Cheetos", price: 9, bgColor: .red, category: .Chips, image: "Cheetos"),
+                    ProductModel(name: "Nestle Maggi", price: 9, bgColor: .yellow, category: .Noodles, image: "Maggi"),
+                    ProductModel(name: "Bingo Doritos", price: 11, bgColor: .purple, category: .Chips, image: "Doritos"),
+                    ProductModel(name: "Dairy Milk", price: 8, bgColor: .blue, category: .Choco, image: "DairyMilk"),
+                    ProductModel(name: "Fritolay Kurkure", price: 13, bgColor: .green, category: .Chips, image: "Kurkure"),
+                    ProductModel(name: "Lays", price: 11, bgColor: .red, category: .Chips, image: "Lays"),
+                    ProductModel(name: "Oreo", price: 12.99, bgColor: .blue, category: .Chips, image: "oreo"), ]
