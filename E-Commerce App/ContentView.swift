@@ -18,11 +18,11 @@ struct ContentView: View {
             ZStack{
                 switch selectedView {
                 case .home:
-                    HomeView().animation(.easeInOut)
+                    HomeView().animation(.bouncy)
                 case .search:
-                    CartView().animation(.easeInOut)
+                    CartView().animation(.bouncy)
                 case .cart:
-                    CartView().animation(.easeInOut)
+                    CartView().animation(.bouncy)
                 }
                 VStack{
                     Spacer()
