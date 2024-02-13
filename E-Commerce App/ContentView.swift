@@ -10,19 +10,19 @@ import SwiftUI
 enum ViewSelector{
     case home, search, cart
 }
-
 struct ContentView: View {
     @State var selectedView:ViewSelector = .home
+    @State var categoryFilter:String = "all"
     var body: some View {
         NavigationStack {
             ZStack{
                 switch selectedView {
                 case .home:
-                    HomeView().animation(.bouncy)
+                    HomeView().animation(.smooth)
                 case .search:
-                    CartView().animation(.bouncy)
+                    CartView().animation(.smooth)
                 case .cart:
-                    CartView().animation(.bouncy)
+                    CartView().animation(.smooth)
                 }
                 VStack{
                     Spacer()
@@ -63,20 +63,13 @@ struct ContentView: View {
                                     }
                                     .animation(.easeInOut)
                                 
-                            }.padding(.bottom,40)
-                            
-                        )
-                }.offset(y:30)
-                    
-            }.ignoresSafeArea()
-                .foregroundColor(.black)
+                            }.padding(.bottom,60))
+                }.offset(y:70)
+            }
+            .foregroundColor(.black)
         }
     }
 }
-
-
-
-
 
 struct CategoryListView:View{
     @Binding var selectedCategory:String
@@ -92,7 +85,7 @@ struct CategoryListView:View{
                                 RoundedRectangle(cornerRadius: 25.0).fill( selectedCategory==item ? .black:.white.opacity(0.8)).frame(width: 100, height: 50)
                                     .overlay(
                                         Text(item).foregroundColor(selectedCategory==item ? .white: .black )
-                                            
+                                        
                                     )
                             }
                         })
@@ -132,57 +125,24 @@ struct ProductCardView:View{
                 .clipShape(.rect(cornerRadius: 50))
                 .fontDesign(.rounded)
         }
-
-        
-            
-         
     }
 }
-//struct ProductCardView:View {
-//    @State var product:ProductModel
-//    var body: some View {
-//        ZStack{
-//            RoundedRectangle(cornerRadius: 25.0).fill(product.bgColor.opacity(0.2)).frame(width: 300, height: 400)
-//                .overlay(
-//                    ZStack {
-//                        VStack(alignment: .leading){
-//                            Text(product.name).font(.system(size: 30)).bold()
-//                                .frame(width: 130)
-//                            Text(product.category.stringValue).font(.system(size: 15))
-//                                .padding()
-//                                .background(.ultraThickMaterial)
-//                                .clipShape(.rect(cornerRadius: 25))
-//                        Spacer()
-//                            RoundedRectangle(cornerRadius: 35.0).fill(.white).frame(width: 250, height: 70)
-//                                .overlay(
-//                                    HStack(spacing:100){
-//                                        Text("$\(Int(product.price))").font(.system(size: 24)).bold()
-//                                        Image(systemName:"bag").imageScale(.large)
-//                                            .foregroundColor(.white)
-//                                            .padding()
-//                                            .background(.black)
-//                                            .clipShape(Circle())
-//                                            .offset(x:20)
-//                                    }.padding()
-//                                )
-//                        }.padding()
-//                    }
-//                    ,alignment: .topLeading)
-//        }
-//    }
-//}
+
 
 #Preview {
     ContentView()
 }
 
 struct HomeView: View {
-    @State var selectedCategory = productCategoryList[0]
+    @State var selectedCategory = "All"
     var body: some View {
         VStack {
             HStack(spacing:40){
                 Text("Order From The Best Of **Snacks**")
                     .font(.system(size: 36))
+                    .onTapGesture {
+                        queueTesting()
+                    }
                 Image(systemName:"line.3.horizontal")
                     .imageScale(.large)
                     .padding()
@@ -190,7 +150,6 @@ struct HomeView: View {
                     .overlay(
                         RoundedRectangle(cornerRadius: 50).stroke().opacity(0.4)
                     )
-                
             }
             
             CategoryListView(selectedCategory: $selectedCategory)
@@ -207,7 +166,7 @@ struct HomeView: View {
             }.padding()
             ScrollView(.horizontal, showsIndicators:false){
                 HStack{
-                    ForEach(productList, id: \.id){ product in
+                    ForEach(categorisedList(var: selectedCategory), id: \.id){ product in
                         ProductCardView(product: product)
                     }
                 }
@@ -221,36 +180,3 @@ struct HomeView: View {
     
 }
 
-//CartView
-//if cartItems.isEmpty{
-//    EmptyView()
-//}else{
-//    VStack{
-//        Spacer()
-//        RoundedRectangle(cornerRadius: 50).frame(height: 130)
-//            .overlay(
-//                HStack {
-//                    Text("\(totalItemsPresent)").padding().background(.yellow).clipShape(.circle).frame(width: 70).bold()
-//                    VStack{
-//                        Text("Cart").font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/)
-//                        Text("\(totalItemsPresent) Items")
-//                    }.foregroundColor(.white)
-//                    Spacer()
-//                    ForEach(cartItems){ item in
-//                        ZStack{
-//                            Image(item.image).resizable()
-//                                .imageScale(.large)
-//                                .scaledToFit()
-//                                .padding()
-//                                .frame(width: 50)
-//                                .background(item.bgColor)
-//                                .clipShape(/*@START_MENU_TOKEN@*/Circle()/*@END_MENU_TOKEN@*/)
-//                                .padding(.leading,-30)
-//                        }
-//                    }
-//                }.padding()
-//            )
-//    }.ignoresSafeArea()
-//        .offset(y:50)
-//        .animation(.bouncy)
-//}

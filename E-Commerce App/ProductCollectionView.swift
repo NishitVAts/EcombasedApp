@@ -9,11 +9,12 @@ import SwiftUI
 
 struct ProductCollectionView: View {
     @Environment(\.dismiss) private var dismiss
+    @State var filterCollection:String = "Chips"
     var body: some View {
         NavigationStack {
             VStack {
                 HStack{
-                    Text("**Chips** Collection")
+                    Text("**\(filterCollection)** Collection")
                         .font(.system(size: 32))
                     Spacer()
                     Image(systemName:"arrow.turn.down.left")
@@ -28,11 +29,16 @@ struct ProductCollectionView: View {
                         }
                         
                 }.padding(.horizontal)
+                
                 ScrollView {
                     LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], content: {
-                        ForEach(productList, id: \.id){
+                        ForEach(categorisedList(var: filterCollection), id: \.id){
                             item in
-                           collectionCardView(product: item)
+                            NavigationLink {
+                                ProductTileView(product: item)
+                            } label: {
+                                collectionCardView(product: item)
+                            }.foregroundColor(.black)
                         }
                     })
                 }
@@ -51,7 +57,8 @@ struct collectionCardView:View {
                     
                     ZStack {
                         Image(product.image).resizable().scaledToFit()
-                            .offset(y:50)
+                            .frame(width: 80)
+                            .offset(y:0)
                         VStack(alignment: .leading){
                             Text(product.name).font(.system(size: 20)).bold()
                                 .frame(width: 80)

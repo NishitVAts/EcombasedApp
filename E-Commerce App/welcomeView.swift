@@ -11,7 +11,6 @@ struct welcomeView: View {
     var body: some View {
         ZStack{
             Color.orange.opacity(0.4).ignoresSafeArea()
-           
             VStack{
                 Text("Order from the best Snacks").font(.system(size: 70))
                     .bold()
@@ -21,12 +20,14 @@ struct welcomeView: View {
                     Image("Doritos").resizable().scaledToFit().rotationEffect(.degrees(15)).frame(width: 300).offset(x:-130,y:230).padding()
                     Image("Maggi").resizable().scaledToFit().rotationEffect(.degrees(230)).frame(width: 300).offset(x:180,y:-200).padding()
                 }
+                
                 HStack{
                     RoundedRectangle(cornerRadius: 25.0).fill(.black).frame(width:250,height: 80)
-                        .overlay(Text("Get Started!").font(.system(size: 30)).bold()).foregroundColor(.white)
+                        .overlay(Text("Get Started!")
+                            .font(.system(size:30)).bold()).foregroundColor(.white)
                 }
             }
-        }.fontDesign(.rounded)
+        }
     }
 }
 
