@@ -46,7 +46,30 @@ struct ProductTileView: View {
                         Text("$**\(Int(product.price))**")
                             .font(.system(size: 46))
                     }.padding()
-                    
+                    HStack{
+                        RoundedRectangle(cornerRadius: 30).fill(.ultraThickMaterial).frame(width: /*@START_MENU_TOKEN@*/100/*@END_MENU_TOKEN@*/, height: 100)
+                            .rotationEffect(.degrees(45))
+                            .overlay(
+                            Image(systemName: "plus")
+                                .font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/)
+                            )
+                            .onTapGesture {
+                                product.quantity+=1
+                            }
+                            .offset(x:240).shadow(radius: /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/)
+                        Text("\(product.quantity)")
+                            .font(.system(size: 36))
+                            .fontDesign(.monospaced)
+                        RoundedRectangle(cornerRadius: 30).fill(.ultraThickMaterial).frame(width: /*@START_MENU_TOKEN@*/100/*@END_MENU_TOKEN@*/, height: 100)
+                            .rotationEffect(.degrees(45))
+                            .overlay(
+                            Image(systemName: "minus")
+                                .font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/)
+                            ) 
+                            .onTapGesture {
+                                product.quantity-=1
+                            }.offset(x:-240).shadow(radius: /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/)
+                    }
                     HStack{
                         Text("Description").font(.system(size: 26)).fontWeight(.semibold)
                             .padding()
